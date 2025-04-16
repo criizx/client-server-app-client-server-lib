@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/display_server.dir/src/main.cpp.o CMakeFiles/display_server.dir/src/handler.cpp.o -o display_server  ../server_lib/libserver_lib.a 
