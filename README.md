@@ -1,20 +1,22 @@
-Реализовано задание, постарался спроектировать так, чтобы в дальнейшем можно было расширять
-Пример расширения — логгер или другие обработчики данных
+The system is designed with extensibility in mind—for example, it can be enhanced with logging or additional data processors.
+Core Components:
 
-Работа с сервером и клиентом выделена в отдельную библиотеку (server_lib.hpp/.cpp), чтобы можно было переиспользовать в разных проектах
+    Server – A TCP server that handles incoming connections, invokes a callback, and (if a forwarding address was provided during construction) relays data to another server.
 
-Основные компоненты:
+    ClientConnector – A TCP client capable of connecting to a server, sending messages, and receiving responses.
 
-    - Server — TCP-сервер, обрабатывает вход. подключения, вызывает коллбэк и если в конструктор был передыан адрес пересыла пересылает данные дальше
+Key Features:
 
-    - ClientConnector — TCP-клиент умеет подключаться и отправлять сообщения, а так же получает ответ от сервера куда отправил
+    Support for server chaining – Data can be routed through multiple servers in sequence.
 
-Возможности
+    Optional forwarding – If no destination is specified, the server simply returns a response to the client.
 
-    поддержка цепи из серверов
+    Extensible architecture – The code structure allows for easy enhancements (e.g., logging, middleware).
 
-    если пункт назначения не задан то просто возвращает ответ клиенту
+    Message framing – Messages are sent with a 4-byte length prefix followed by the actual data.
 
-    структура кода позволяет легко расшряться (например, логирование и тд)
+Implementation Details:
 
-    сначала отправляется длина сообщения:  (4 байта), затем сами данные.
+    Network operations (server & client) are encapsulated in a reusable library (server_lib.hpp / server_lib.cpp).
+
+    The design promotes separation of concerns, making it adaptable for different use cases.
